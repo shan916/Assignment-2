@@ -55,6 +55,29 @@
     
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     
+    if ([self.game.lastCards count])
+    {
+        if (self.game.lastResult == FLIP)
+        {
+            self.historyLabel.text = [NSString stringWithFormat:@"Flipped up %@: -%d",
+                                      [[self.game.lastCards lastObject] contents], self.game.lastScore];
+        }
+        else if (self.game.lastResult == MATCH)
+        {
+            self.historyLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@: +%d", [self.game.lastCards[0] contents],
+                                      [self.game.lastCards[1] contents], [self.game.lastCards[2] contents], self.game.lastScore];
+        }
+        else if (self.game.lastResult == MISMATCH)
+        {
+            self.historyLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't match: -%d", [self.game.lastCards[0] contents],
+                                      [self.game.lastCards[1] contents], [self.game.lastCards[2] contents], self.game.lastScore];
+        }
+    }
+    else
+    {
+        self.historyLabel.text = [NSString stringWithFormat:@""];
+    }
+    
     /* if ([self.game.history count])
     {
         self.historyLabel.text = [NSString stringWithFormat:@"%@", [self.game.history lastObject]];
