@@ -59,18 +59,25 @@
     {
         if (self.game.lastResult == FLIP)
         {
-            self.historyLabel.text = [NSString stringWithFormat:@"Flipped up %@: -%d",
-                                      [[self.game.lastCards lastObject] contents], self.game.lastScore];
+            NSMutableAttributedString *attributedHistory = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Flipped up  : -%d", self.game.lastScore]];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)[self.game.lastCards lastObject]] atIndex:11];
+            self.historyLabel.attributedText = attributedHistory;
         }
         else if (self.game.lastResult == MATCH)
         {
-            self.historyLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@: +%d", [self.game.lastCards[0] contents],
-                                      [self.game.lastCards[1] contents], [self.game.lastCards[2] contents], self.game.lastScore];
+            NSMutableAttributedString *attributedHistory = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Matched      : +%d", self.game.lastScore]];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[0]] atIndex:11];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[1]] atIndex:10];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[2]] atIndex:9];
+            self.historyLabel.attributedText = attributedHistory;
         }
         else if (self.game.lastResult == MISMATCH)
         {
-            self.historyLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't match: -%d", [self.game.lastCards[0] contents],
-                                      [self.game.lastCards[1] contents], [self.game.lastCards[2] contents], self.game.lastScore];
+            NSMutableAttributedString *attributedHistory = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"    don't match: -%d", self.game.lastScore]];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[0]] atIndex:2];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[1]] atIndex:1];
+            [attributedHistory insertAttributedString:[self attributedContentsForCard:(SetCard *)self.game.lastCards[2]] atIndex:0];
+            self.historyLabel.attributedText = attributedHistory;
         }
     }
     else

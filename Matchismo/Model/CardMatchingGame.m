@@ -65,7 +65,6 @@
 
 #define FLIP_COST 1
 #define MISMATCH_PENALTY 2
-#define MATCH_BONUS 4
 
 - (void)flipCardAtIndex:(NSUInteger)index
 {
@@ -73,6 +72,7 @@
     
     if (self.numberOfCardsToMatch == 2)
     {
+        const unsigned MATCH_BONUS = 4;
         if (!card.isUnplayable)
         {
             if (!card.isFaceUp)
@@ -121,6 +121,7 @@
     }
     else if (self.numberOfCardsToMatch == 3)
     {
+        const unsigned MATCH_BONUS = 16;
         if (!card.isUnplayable)
         {
             if (!card.isFaceUp)
