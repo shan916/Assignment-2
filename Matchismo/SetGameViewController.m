@@ -1,6 +1,6 @@
 //
 //  SetGameViewController.m
-//  Matchismo
+//  ;
 //
 //  Created by Zeeshan Khaliq on 6/5/13.
 //  Copyright (c) 2013 Zeeshan Khaliq. All rights reserved.
@@ -10,6 +10,8 @@
 #import "SetCardDeck.h"
 #import "SetCard.h"
 #import "CardMatchingGame.h"
+
+#define GAME_MODE 3
 
 @interface SetGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
@@ -25,8 +27,7 @@
     if (!_game)
     {
         _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[SetCardDeck alloc] init]];
-        _game.numberOfCardsToMatch = 3;
+                                                  usingDeck:[[SetCardDeck alloc] init] numberOfCardsToMatch:GAME_MODE];
     }
     
     return _game;
@@ -84,46 +85,64 @@
     {
         self.historyLabel.text = [NSString stringWithFormat:@""];
     }
-    
-    /* if ([self.game.history count])
-    {
-        self.historyLabel.text = [NSString stringWithFormat:@"%@", [self.game.history lastObject]];
-    }
-    else
-    {
-        self.historyLabel.text = [NSString stringWithFormat:@""];
-    }
-    */
 }
 
 - (NSAttributedString *)attributedContentsForCard:(SetCard *)card
 {
+    
+    enum Color{RED=1, GREEN=2, PURPLE=3};
+    enum Shape{SQUARE=1, TRIANGLE=2, CIRCLE=3};
+    enum Shading{SOLID=1, SHADED=2, OPEN=3};
+    
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     UIColor *color = [[UIColor alloc] init];
     UIColor *fillColor = [[UIColor alloc] init];
+    NSMutableString *contents = [[NSMutableString alloc] initWithString:@""];
     
-    if ([card.color isEqualToString:@"red"])
+    if (card.shape == SQUARE)
+    {
+        for (unsigned i = 0; i < card.number; i++)
+        {
+            [contents appendString:@"☐"];
+        }
+    }
+    else if (card.shape == TRIANGLE)
+    {
+        for (unsigned i = 0; i < card.number; i++)
+        {
+            [contents appendString:@"△"];
+        }
+    }
+    else if (card.shape == CIRCLE)
+    {
+        for (unsigned i = 0; i < card.number; i++)
+        {
+            [contents appendString:@"○"];
+        }
+    }
+    
+    if (card.color == RED)
     {
         color = [UIColor redColor];
     }
-    else if ([card.color isEqualToString:@"green"])
+    else if (card.color == GREEN)
     {
         color = [UIColor greenColor];
     }
-    else if ([card.color isEqualToString:@"purple"])
+    else if (card.color == PURPLE)
     {
         color = [UIColor purpleColor];
     }
     
-    if ([card.shading isEqualToString:@"solid"])
+    if (card.shading == SOLID)
     {
         fillColor = color;
     }
-    else if ([card.shading isEqualToString:@"shaded"])
+    else if (card.shading == SHADED)
     {
         fillColor = [color colorWithAlphaComponent:0.3];
     }	
-    else if ([card.shading isEqualToString:@"open"])
+    else if (card.shading == OPEN)
     {
         fillColor = [UIColor clearColor];
     }
@@ -133,9 +152,9 @@
     [attributes setObject:color forKey:NSStrokeColorAttributeName];
     [attributes setObject:fillColor forKey:NSForegroundColorAttributeName];
     
-    NSAttributedString *contents = [[NSAttributedString alloc] initWithString:card.contents attributes:attributes];
+    NSAttributedString *attributedContents = [[NSAttributedString alloc] initWithString:contents attributes:attributes];
     
-    return contents;
+    return attributedContents;
 }
 
 - (void)viewWillAppear:(BOOL)animated

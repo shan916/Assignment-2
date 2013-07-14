@@ -34,7 +34,7 @@
     return _cards;
 }
 
-- (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
+- (id)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck numberOfCardsToMatch:(NSUInteger)numberOfCardsToMatch
 {
     self = [super init];
     
@@ -53,6 +53,7 @@
                 self.cards[i] = card;
             }
         }
+        self.numberOfCardsToMatch = numberOfCardsToMatch;
     }
     
     return self;

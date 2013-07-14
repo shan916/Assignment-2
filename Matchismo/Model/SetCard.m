@@ -10,18 +10,6 @@
 
 @implementation SetCard
 
-- (NSString *)contents
-{
-    NSString *cardContents = self.shape;
-    
-    for (NSUInteger i = 1; i < self.number; i++)
-    {
-        cardContents = [cardContents stringByAppendingString:self.shape];
-    }
-    
-    return cardContents;
-}
-
 - (int)match:(NSArray *)otherCards
 {
     int score = 0;
@@ -39,9 +27,9 @@
             if ([card isKindOfClass:[SetCard class]])
             {
                 SetCard *myCard = (SetCard *)card;
-                [shapeSet addObject:myCard.shape];
-                [colorSet addObject:myCard.color];
-                [shadingSet addObject:myCard.shading];
+                [shapeSet addObject:@(myCard.shape)];
+                [colorSet addObject:@(myCard.color)];
+                [shadingSet addObject:@(myCard.shading)];
                 [numberSet addObject:@(myCard.number)];
             }
             
@@ -61,17 +49,17 @@
 
 + (NSArray *)validShapes
 {
-    return @[@"△", @"☐", @"○"];
+    return @[@(1), @(2), @(3)];
 }
 
 + (NSArray *)validColors
 {
-    return @[@"red", @"green", @"purple"];
+    return @[@(1), @(2), @(3)];
 }
 
 + (NSArray *)validShadings
 {
-    return @[@"solid", @"shaded", @"open"];
+    return @[@(1), @(1), @(2)];
 }
 
 + (NSArray *)validNumbers

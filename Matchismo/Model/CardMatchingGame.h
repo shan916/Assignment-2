@@ -15,7 +15,7 @@ enum Result {FLIP, MATCH, MISMATCH};
 
 // designated initializer
 - (id)initWithCardCount:(NSUInteger)cardCount
-              usingDeck:(Deck *)deck;
+usingDeck:(Deck *)deck numberOfCardsToMatch:(NSUInteger)numberOfCardsToMatch;
 
 - (void)flipCardAtIndex:(NSUInteger)index;
 

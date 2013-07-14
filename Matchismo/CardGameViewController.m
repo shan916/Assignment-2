@@ -10,6 +10,8 @@
 #import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
+#define GAME_MODE 2
+
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
@@ -26,8 +28,7 @@
     if (!_game)
     {
         _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
-                                                  usingDeck:[[PlayingCardDeck alloc] init]];
-        _game.numberOfCardsToMatch = 2;
+                                                  usingDeck:[[PlayingCardDeck alloc] init] numberOfCardsToMatch:GAME_MODE];
     }
     
     return _game;

@@ -10,9 +10,9 @@
 
 @interface SetCard : Card
 
-@property (strong, nonatomic) NSString *shape;
-@property (strong, nonatomic) NSString *color;
-@property (strong, nonatomic) NSString *shading;
+@property (nonatomic) NSUInteger shape;
+@property (nonatomic) NSUInteger color;
+@property (nonatomic) NSUInteger shading;
 @property (nonatomic) NSUInteger number;
 
 + (NSArray *)validShapes;

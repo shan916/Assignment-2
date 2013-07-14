@@ -17,18 +17,18 @@
     
     if (self)
     {
-        for (NSString *shape in [SetCard validShapes])
+        for (NSNumber *shape in [SetCard validShapes])
         {
-            for (NSString *color in [SetCard validColors])
+            for (NSNumber *color in [SetCard validColors])
             {
-                for (NSString *shading in [SetCard validShadings])
+                for (NSNumber *shading in [SetCard validShadings])
                 {
                     for (NSNumber *number in [SetCard validNumbers])
                     {
                         SetCard *card = [[SetCard alloc] init];
-                        card.shape = shape;
-                        card.color = color;
-                        card.shading = shading;
+                        card.shape = [shape unsignedIntegerValue];
+                        card.color = [color unsignedIntegerValue];
+                        card.shading = [shading unsignedIntegerValue];
                         card.number = [number unsignedIntegerValue];
                         [self addCard:card atTop:YES];
                     }
